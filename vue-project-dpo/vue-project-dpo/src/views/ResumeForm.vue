@@ -145,11 +145,15 @@
         ></textarea>
         <textarea v-model="about" placeholder="О себе" class="border p-2 rounded"></textarea>
         <StatusResume />
+        <Button @click="applyData" class="w-full bg-blue-500 hover:bg-blue-400 text-white">
+          Применить
+        </Button>
       </div>
     </div>
 
     <!-- Шаблон резюме -->
     <ResumeForm
+      :isApply="isApply"
       :photoUrl="photoUrl"
       :phone="phone"
       :profession="profession"
@@ -237,10 +241,15 @@ const desiredSalary = ref('')
 const skills = ref('')
 const about = ref('')
 
+// логика для отправки формы
+
+const isApply = ref(false)
+
+const applyData = () => {
+  isApply.value = true
+}
+
 // Логика для добавления и удаление доп образования
-
-// логика для select
-
 const additionalEducation = ref([])
 
 const addEducation = () => {
@@ -250,6 +259,7 @@ const addEducation = () => {
 const removeEducation = (index) => {
   additionalEducation.value.splice(index, 1)
 }
+// логика для select
 
 const stateUnivesity = ref('')
 const faculty = ref('')

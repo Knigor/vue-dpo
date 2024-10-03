@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+  <div v-if="isApply" class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
     <div class="flex items-center space-x-4 mb-4">
       <img :src="photoUrl" alt="Фото" class="w-24 h-24 rounded-full object-cover" />
       <div>
@@ -44,6 +44,7 @@
 
 <script setup>
 const props = defineProps({
+  isApply: Boolean,
   photoUrl: String,
   stateUnivesity: String,
   faculty: String,
