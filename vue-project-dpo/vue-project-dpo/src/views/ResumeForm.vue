@@ -108,6 +108,30 @@
           />
         </div>
 
+        <div
+          v-if="
+            education === `colledge` || education === `not_university` || education === `university`
+          "
+          class="flex flex-col gap-4"
+        >
+          <Button @click="addEducation" class="flex bg-green-600 hover:bg-green-500"
+            >Добавить дополнительне образование +</Button
+          >
+          <div
+            v-for="(edu, index) in additionalEducation"
+            :key="index"
+            class="flex justify-between items-center"
+          >
+            <input
+              v-model="edu[index]"
+              type="text"
+              placeholder="Ссылка на дополнительное образование"
+              class="border p-2 rounded w-[800px]"
+            />
+            <Button @click="removeEducation(index)" variant="link">Удалить</Button>
+          </div>
+        </div>
+
         <input
           v-model="desiredSalary"
           type="text"
@@ -143,6 +167,7 @@
       :year_finish="year_finish"
       :isUniversity="isUniversity"
       :educationLabel="educationLabel"
+      :additionalEducation="additionalEducation"
       class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md"
     />
     <!-- <div>
@@ -212,7 +237,19 @@ const desiredSalary = ref('')
 const skills = ref('')
 const about = ref('')
 
+// Логика для добавления и удаление доп образования
+
 // логика для select
+
+const additionalEducation = ref([])
+
+const addEducation = () => {
+  additionalEducation.value.push({ link: '' })
+}
+
+const removeEducation = (index) => {
+  additionalEducation.value.splice(index, 1)
+}
 
 const stateUnivesity = ref('')
 const faculty = ref('')

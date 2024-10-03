@@ -24,6 +24,11 @@
         <p class="text-gray-600"><strong>Специализация:</strong> {{ spec }}</p>
         <p class="text-gray-600"><strong>Год окончания:</strong> {{ year_finish }}</p>
       </div>
+      <div v-for="(edu, index) in additionalEducation" :key="index" class="flex flex-col pl-2 pt-2">
+        <p class="text-gray-600">
+          <strong>Ссылка на {{ index + 1 }} доп образование:</strong> {{ edu[index] }}
+        </p>
+      </div>
       <p class="text-gray-700 mt-2"><strong>Желаемая зарплата:</strong> {{ desiredSalary }}</p>
     </div>
     <div class="mb-4">
@@ -54,7 +59,8 @@ const props = defineProps({
   education: String,
   desiredSalary: String,
   skills: String,
-  about: String
+  about: String,
+  additionalEducation: Array
 })
 </script>
 
