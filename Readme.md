@@ -20,8 +20,8 @@
 4. Запускаем контейнер `docker compose -p <название контейнера> up -d`
 5. Сервер запущен
 6. Установка Symfony
-7. Заходим в контейнер php `docker exec -it php81-container bash`
-8. Прописываем команду `composer install`
+7. Заходим в контейнер php `docker exec -it php81-container /bin/bash`
+8. Прописываем команду `composer install` // не нужен
 9. Запускаем сервер: `symfony server:start --port=8080 -d`
 
 ## В папке postgres лежит файл дампа базы данных, который нужно выполнить
@@ -33,6 +33,8 @@
 
 ## заметки
 
-Установка
+## Установка + mongoDB
 
 1. Создаем Symfony проект `composer create-project symfony/skeleton:"7.1.*" .`
+2. Установка ODM `composer require doctrine/mongodb-odm-bundle`
+3. Установка TWIG `composer require symfony/twig-bundle`
