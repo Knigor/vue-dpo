@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use JsonSerializable;
 
 #[ODM\Document(collection: 'resume')]
-class Resume
+class Resume implements JsonSerializable
 {
     #[ODM\Id]
     private ?string $id = null;
@@ -90,5 +91,18 @@ class Resume
     public function setPhoto(string $photo): void
     {
         $this->photo = $photo;
+    }
+
+    // Реализация метода jsonSerialize
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'profession' => $this->profession,
+            'age' => $this->age,
+            'status' => $this->status,
+            'photo' => $this->photo,
+        ];
     }
 }

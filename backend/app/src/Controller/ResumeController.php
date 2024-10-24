@@ -75,34 +75,63 @@ class ResumeController extends AbstractController
     public function add(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-
-        $resume = new Resume($data['name'], $data['profession'], $data['age'], $data['status'], $data['photo']);
-        $this->dm->persist($resume);
-        $this->dm->flush();
-
-        return $this->json($resume, Response::HTTP_CREATED);
+    
+        // Проверка на наличие синтаксической ошибки в JSON
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return new JsonResponse(['message' => 'Invalid JSON syntax'], Response::HTTP_BAD_REQUEST);
+        }
+    
+        // Проверка на наличие обязательных полей
+        if (!isset($data['name'], $data['profession'], $data['age'], $data['status'], $data['photo'])) {
+            return new JsonResponse(['message' => 'Missing required fields'], Response::HTTP_BAD_REQUEST);
+        }
+    
+        try {
+            $resume = new Resume($data['name'], $data['profession'], $data['age'], $data['status'], $data['photo']);
+            $this->dm->persist($resume);
+            $this->dm->flush();
+    
+            return $this->json(['message' => 'Resume successfully added', 'resume' => $resume], Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            return new JsonResponse(['message' => 'Error adding resume: ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
+    
+    
 
     #[Route('/api/cv/{id}/edit', name: 'api_cv_edit', methods: ['POST'])]
     public function edit(string $id, Request $request): JsonResponse
     {
         $resume = $this->dm->getRepository(Resume::class)->find($id);
-
+    
         if (!$resume) {
             return new JsonResponse(['message' => 'Resume not found'], Response::HTTP_NOT_FOUND);
         }
-
+    
         $data = json_decode($request->getContent(), true);
-        $resume->setName($data['name']);
-        $resume->setProfession($data['profession']);
-        $resume->setAge($data['age']);
-        $resume->setStatus($data['status']);
-        $resume->setPhoto($data['photo']);
+    
+        // Обновляем только те поля, которые переданы в запросе
+        if (isset($data['name'])) {
+            $resume->setName($data['name']);
+        }
+        if (isset($data['profession'])) {
+            $resume->setProfession($data['profession']);
+        }
+        if (isset($data['age'])) {
+            $resume->setAge($data['age']);
+        }
+        if (isset($data['status'])) {
+            $resume->setStatus($data['status']);
+        }
+        if (isset($data['photo'])) {
+            $resume->setPhoto($data['photo']);
+        }
         
         $this->dm->flush();
-
-        return $this->json($resume);
+    
+        return $this->json(['message' => 'Resume successfully updated', 'resume' => $resume], Response::HTTP_ACCEPTED);
     }
+    
 
     #[Route('/api/cv/{id}/status/update', name: 'api_cv_status_update', methods: ['POST'])]
     public function updateStatus(string $id, Request $request): JsonResponse
@@ -118,6 +147,6 @@ class ResumeController extends AbstractController
 
         $this->dm->flush();
 
-        return $this->json($resume);
+        return $this->json(['message' => 'Status resume updated', 'resume' => $resume], Response::HTTP_ACCEPTED);
     }
 }

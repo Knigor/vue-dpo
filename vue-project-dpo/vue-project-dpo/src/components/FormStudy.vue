@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isApply" class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+  <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
     <div class="flex items-center space-x-4 mb-4">
       <img :src="photoUrl" alt="Фото" class="w-24 h-24 rounded-full object-cover" />
       <div>
@@ -12,21 +12,30 @@
       <p class="text-gray-700"><strong>Телефон:</strong> {{ phone }}</p>
       <p class="text-gray-700"><strong>Email:</strong> {{ email }}</p>
       <p class="text-gray-700"><strong>Дата рождения:</strong> {{ birthDate }}</p>
-      <p class="text-gray-700"><strong>Образование:</strong> {{ educationLabel }}</p>
-      <div
-        class="flex flex-col gap-2 pl-2 pt-2"
-        v-if="
-          education === `colledge` || education === `not_university` || education === `university`
-        "
-      >
-        <p class="text-gray-600"><strong>Учебное заведение:</strong> {{ stateUnivesity }}</p>
-        <p class="text-gray-600"><strong>Факультет:</strong> {{ faculty }}</p>
-        <p class="text-gray-600"><strong>Специализация:</strong> {{ spec }}</p>
-        <p class="text-gray-600"><strong>Год окончания:</strong> {{ year_finish }}</p>
+
+      <div v-for="(edu, index) in educationList" :key="index" class="flex flex-col pl-4">
+        <h1 class="text-red-600">
+          <strong> Образование {{ index + 1 }}</strong>
+        </h1>
+        <p class="text-gray-700">
+          <strong>Образование:</strong>
+          {{ edu.educationLevel === 'colledge' ? 'Среднее специальное' : ''
+          }}{{ edu.educationLevel === 'not_university' ? 'Неоконченное высшее' : ''
+          }}{{ edu.educationLevel === 'university' ? 'Высшее' : '' }}
+          {{ edu.educationLevel === 'school' ? 'Школа' : '' }}
+        </p>
+
+        <div v-if="edu.educationLevel !== 'school'" class="flex flex-col gap-2 pt-2">
+          <p class="text-gray-600"><strong>Учебное заведение:</strong> {{ edu.stateUnivesity }}</p>
+          <p class="text-gray-600"><strong>Факультет:</strong> {{ edu.faculty }}</p>
+          <p class="text-gray-600"><strong>Специализация:</strong> {{ edu.specialization }}</p>
+          <p class="text-gray-600"><strong>Год окончания:</strong> {{ edu.year_finish }}</p>
+        </div>
       </div>
-      <div v-for="(edu, index) in additionalEducation" :key="index" class="flex flex-col pl-2 pt-2">
+
+      <div v-for="(edu, index) in additionalEducation" :key="index" class="flex flex-col pt-2">
         <p class="text-gray-600">
-          <strong>Ссылка на {{ index + 1 }} доп образование:</strong> {{ edu[index] }}
+          <strong>Ссылка на {{ index + 1 }} доп образование:</strong> {{ edu.link }}
         </p>
       </div>
       <p class="text-gray-700 mt-2"><strong>Желаемая зарплата:</strong> {{ desiredSalary }}</p>
@@ -44,7 +53,6 @@
 
 <script setup>
 const props = defineProps({
-  isApply: Boolean,
   photoUrl: String,
   stateUnivesity: String,
   faculty: String,
@@ -61,7 +69,9 @@ const props = defineProps({
   desiredSalary: String,
   skills: String,
   about: String,
-  additionalEducation: Array
+  additionalEducation: Array,
+  university: String,
+  educationList: Array
 })
 </script>
 
