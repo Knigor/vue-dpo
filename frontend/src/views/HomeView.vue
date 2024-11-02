@@ -1,7 +1,9 @@
-<script setup></script>
-
 <template>
   <div class="flex justify-center">
-    <h1 class="text-purple-700">Абоба</h1>
+    <MainCell />
   </div>
 </template>
+
+<script setup>
+import MainCell from './MainCell.vue'
+</script>

@@ -8,7 +8,6 @@
       </div>
       <ResumeComponent @submit="handleFormSubmit" />
     </div>
-
     <!-- Шаблон резюме -->
     <ResumeForm
       v-if="isSubmitted"

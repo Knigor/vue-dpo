@@ -50,8 +50,14 @@
     </p>
 
     <!-- Поле для ввода email -->
-    <input v-model="email" type="email" placeholder="Email" class="border p-2 rounded" />
-
+    <input
+      @input="hasEmail = true"
+      v-model="email"
+      type="email"
+      placeholder="Email"
+      class="border p-2 rounded"
+    />
+    <p v-if="!isEmailValid && hasEmail" class="text-red-600">Введите корректный email</p>
     <!-- Поле для выбора даты рождения -->
     <input v-model="birthDate" type="date" placeholder="Дата рождения" class="border p-2 rounded" />
 
@@ -212,9 +218,12 @@ const desiredSalary = ref('')
 const skills = ref('')
 const about = ref('')
 const hasInput = ref(false)
+const hasEmail = ref(false)
 const phone = ref('')
 const regexPhone = /^\d{6,10}$/
+const regexEmail = /^\S+@\S+\.\S+$/
 const isPhoneValid = computed(() => regexPhone.test(phone.value))
+const isEmailValid = computed(() => regexEmail.test(email.value))
 const isApply = ref(false)
 const emit = defineEmits(['submit'])
 const isCityListVisible = ref(false)
