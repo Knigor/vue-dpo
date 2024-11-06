@@ -15,5 +15,14 @@ export default defineConfig({
   build: {
     outDir: '../backend/app/public',
     emptyOutDir: true
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.vk.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
 })

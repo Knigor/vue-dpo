@@ -43,7 +43,7 @@
               <div><strong>Профессия:</strong> {{ element.profession }}</div>
               <div><strong>Кол-во лет:</strong> {{ element.age }}</div>
               <div class="flex items-center">
-                <strong>Photo:</strong>
+                <strong>Фото:</strong>
                 <img :src="element.photo" class="ml-2 h-12 w-12 rounded-full" />
               </div>
               <button

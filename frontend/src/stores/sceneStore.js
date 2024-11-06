@@ -25,6 +25,7 @@ export const useSceneStore = defineStore('scene', () => {
       candidates.value = data
 
       // Filter data by status after loading
+
       resume.value['Новый'] = candidates.value.filter((item) => item.status === 'Новый')
       resume.value['Принят'] = candidates.value.filter((item) => item.status === 'Принят')
       resume.value['Назначено собеседование'] = candidates.value.filter(
