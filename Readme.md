@@ -1,6 +1,6 @@
 ### Задания для ДПО-Intaro, Vue. в папке vue-project-dpo находятся все заданию до RESTful API приложения. Следующее приложение будет находится в папках frontend и backend
 
-## Иструкция по запуску проекта
+## Иструкция по запуску проекта для разработки
 
 ## Frontend
 
@@ -38,3 +38,9 @@
 1. Создаем Symfony проект `composer create-project symfony/skeleton:"7.1.*" .`
 2. Установка ODM `composer require doctrine/mongodb-odm-bundle`
 3. Установка TWIG `composer require symfony/twig-bundle`
+
+## Если вы просто хотите запустить готовый проект
+
+1. Клонируем из репозитория проект
+2. Заходим в папку `backend` и запускаем docker образ
+3. По адресу `localhost:8080` будет доступен проект
