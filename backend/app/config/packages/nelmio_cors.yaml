@@ -8,6 +8,6 @@ nelmio_cors:
     hosts: []
   paths:
     "^/api/": # Путь, к которому применяются настройки CORS
-      allow_origin: ["http://localhost:5173"] # Укажите разрешенные источники
+      allow_origin: ["*"] # Укажите разрешенные источники
       allow_headers: ["Content-Type", "Authorization"]
       allow_methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"]
