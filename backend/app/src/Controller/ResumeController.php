@@ -81,6 +81,17 @@ class ResumeController extends AbstractController
             'name' => $resume->getName(),
             'profession' => $resume->getProfession(),
             'status' => $resume->getStatus(),
+            'photo' => $resume->getPhoto(),
+            'city' => $resume->getCity(),
+            'phone' => $resume->getPhone(),
+            'email' => $resume->getEmail(),
+            'birthDate' => $resume->getBirthDate() ? $resume->getBirthDate()->format('Y-m-d') : '',
+            'education' => $resume->getEducation(),
+            'desiredSalary' => $resume->getDesiredSalary(),
+            'skills' => $resume->getSkills(),
+            'about' => $resume->getAbout(),
+            'additionalEducation' => $resume->getAdditionalEducation(),
+            'educationList' => $resume->getEducationList(),
         ]);
     }
     

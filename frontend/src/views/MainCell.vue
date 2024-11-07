@@ -47,6 +47,7 @@
                 <img :src="element.photo" class="ml-2 h-12 w-12 rounded-full" />
               </div>
               <button
+                @click="$router.push(`/edit/${element.id}`)"
                 class="bg-blue-500 mt-2 mb-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
               >
                 Редактировать
@@ -61,6 +62,7 @@
 
 <script>
 import { onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useSceneStore } from '@/stores/sceneStore'
 import draggable from 'vuedraggable'
 
